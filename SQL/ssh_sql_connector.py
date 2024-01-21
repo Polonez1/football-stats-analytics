@@ -1,5 +1,5 @@
 import src.pysql.pySQL as sqlconn
-import conn as conn
+import SQL.conn as conn
 import pandas as pd
 from datetime import datetime
 
@@ -89,7 +89,8 @@ def get_standings_data(season):
         "season": f"{season}",
     }
     df = sql.get_data_from_query(query=query, params=params)
-    print(df)
+
+    return df
 
 
 if "__main__" == __name__:
