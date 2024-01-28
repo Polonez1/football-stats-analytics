@@ -93,5 +93,14 @@ def get_standings_data(season):
     return df
 
 
+def get_fixtures_data():
+    with open("./SQL/SQL_queries/fixtures/fixtures.sql", "r") as file:
+        query = file.read()
+
+    df = sql.get_data_from_query(query=query)
+
+    return df
+
+
 if "__main__" == __name__:
     get_standings_data(season=2023)
