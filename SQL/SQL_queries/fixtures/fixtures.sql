@@ -1,5 +1,6 @@
 select f.fixture_id,
     f.fixture_date,
+    f.league_name,
     f.league_season,
     f.fixture_status_long,
     f.fixture_status_short,
