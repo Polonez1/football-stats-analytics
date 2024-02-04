@@ -30,7 +30,7 @@ class MainData:
 
 if "__main__" == __name__:
     maindata = MainData(seasons=[2020, 2021, 2022])
-    df = maindata.get_standings_averages()
-    print(df)
+    # df = maindata.get_standings_averages()
+    # print(df)
     # df.to_csv("./data/fixtures.csv")
     # print(df.head(20))

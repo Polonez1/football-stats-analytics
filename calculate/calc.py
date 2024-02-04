@@ -52,10 +52,23 @@ def results_distribution_by_skellam(avg_1, avg_2, total):
 
 
 class SkellamDistribution:
-    def __init__(self, df: pd.DataFrame):
+    def __init__(self, df: pd.DataFrame, season: int = None, league: str = None):
         self.data = df
-        self.league = None
-        self.season = None
+        self.league = league
+        self.season = season
+
+        if season is not None:
+            self.__filter_by_season()
+        if league is not None:
+            self.__filter_by_league()
+
+    def __filter_by_season(self):
+        if self.season is not None:
+            self.data = self.data[self.data["league_season"] == self.season]
+
+    def __filter_by_league(self):
+        if self.league is not None:
+            self.data = self.data[self.data["league_name"] == self.league]
 
     def __get_averages(self):
         df_agg = self.data.agg(
