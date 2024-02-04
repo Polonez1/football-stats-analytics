@@ -27,5 +27,9 @@ def result_distribution():
     vs.distribution_by_goals(df=dff)
 
 
+def stats_distribution():
+    pass
+
+
 if "__main__" == __name__:
     result_distribution()
