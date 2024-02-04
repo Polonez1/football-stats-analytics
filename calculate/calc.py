@@ -2,7 +2,12 @@ from scipy.stats import poisson
 import pandas as pd
 import numpy as np
 
-from calculate_data_processing import skellam_dist_proc, group_data
+import sys
+
+sys.path.append(".\calc\calculate\calculate_data_processing")
+
+import calculate.calculate_data_processing.skellam_dist_proc as skellam_dist_proc
+import calculate.calculate_data_processing.group_data as group_data
 
 
 def calculate_poisson_dist(avg: int):
@@ -73,7 +78,7 @@ class SkellamDistribution:
         return skellam_dist
 
     def __fact_distribution_data(self):
-        df = group_data.group_fixture_by_goals(df, by=["goals_result"])
+        df = group_data.group_fixture_by_goals(self.data, by=["goals_result"])
         df["source"] = "fact"
 
         return df
