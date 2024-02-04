@@ -2,6 +2,8 @@ from scipy.stats import poisson
 import pandas as pd
 import numpy as np
 
+from calculate_data_processing import skellam_dist_proc, group_data
+
 
 def calculate_poisson_dist(avg: int):
     goals_list = list(range(0, 11))
@@ -42,6 +44,47 @@ def results_distribution_by_skellam(avg_1, avg_2, total):
     df["exp_counts"] = df["exp_counts"].round(0)
 
     return df
+
+
+class SkellamDistribution:
+    def __init__(self, df: pd.DataFrame):
+        self.data = df
+        self.league = None
+        self.season = None
+
+    def __get_averages(self):
+        df_agg = self.data.agg(
+            {
+                "fixture_id": "count",
+                "goals_home": "mean",
+                "goals_away": "mean",
+            }
+        )
+        return df_agg
+
+    def __skellam_distribution_data(self):
+        averages = self.__get_averages()
+        skellam_dist = results_distribution_by_skellam(
+            avg_1=averages["goals_home"],
+            avg_2=averages["goals_away"],
+            total=averages["fixture_id"],
+        )
+        skellam_dist = skellam_dist_proc.skellam_dist_processing(skellam_dist)
+        return skellam_dist
+
+    def __fact_distribution_data(self):
+        df = group_data.group_fixture_by_goals(df, by=["goals_result"])
+        df["source"] = "fact"
+
+        return df
+
+    def create_full_data(self):
+        fact = self.__fact_distribution_data()
+        skellam_dist = self.__skellam_distribution_data()
+
+        dff = pd.concat([fact, skellam_dist])
+
+        return dff
 
 
 if "__main__" == __name__:

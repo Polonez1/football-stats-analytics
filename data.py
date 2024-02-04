@@ -27,18 +27,6 @@ class MainData:
 
         return dff
 
-    def get_standings_averages(self):
-        df = self.fixtures_data()
-        print(df.columns)
-        df_agg = df.agg(
-            {
-                "fixture_id": "count",
-                "goals_home": "mean",
-                "goals_away": "mean",
-            }
-        )
-        return df_agg
-
 
 if "__main__" == __name__:
     maindata = MainData(seasons=[2020, 2021, 2022])
