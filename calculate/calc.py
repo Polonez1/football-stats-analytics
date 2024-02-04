@@ -42,3 +42,8 @@ def results_distribution_by_skellam(avg_1, avg_2, total):
     df["exp_counts"] = df["exp_counts"].round(0)
 
     return df
+
+
+if "__main__" == __name__:
+    p = skellam_dist_matrix(1.5, 1.1)
+    print(p)

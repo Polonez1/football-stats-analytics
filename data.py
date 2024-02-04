@@ -16,14 +16,8 @@ class MainData:
             df = add_columns.add_average_goals(df=df)
             dff.append(df)
 
-        # dft = pd.concat(dff)
-        # dfg = dft.agg(
-        #    {
-        #        "goal_avg_GF": "mean",
-        #        "goal_avg_GA": "mean",
-        #    }
-        # )
-        # return dfg
+        dfc = pd.concat(dff)
+        return dfc
 
     def fixtures_data(self) -> pd.DataFrame:
         df: pd.DataFrame = SQL.get_fixtures_data()
@@ -33,10 +27,22 @@ class MainData:
 
         return dff
 
+    def get_standings_averages(self):
+        df = self.fixtures_data()
+        print(df.columns)
+        df_agg = df.agg(
+            {
+                "fixture_id": "count",
+                "goals_home": "mean",
+                "goals_away": "mean",
+            }
+        )
+        return df_agg
+
 
 if "__main__" == __name__:
     maindata = MainData(seasons=[2020, 2021, 2022])
-    df = maindata.standings_data()
-    print(df.head(20))
+    df = maindata.get_standings_averages()
+    print(df)
     # df.to_csv("./data/fixtures.csv")
     # print(df.head(20))
