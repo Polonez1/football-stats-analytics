@@ -7,7 +7,7 @@ import dash
 from dash import dcc, html
 
 
-def distribution_by_goals(df: pd.DataFrame):
+def distribution_by_goals(df: pd.DataFrame, params: dict = None):
     df = df.sort_values(by="count", ascending=False)
     df = df.loc[df["count"] > 0]
     fig = px.bar(
@@ -19,6 +19,24 @@ def distribution_by_goals(df: pd.DataFrame):
         title="Compare by fact and skellam dist.",
     )
     fig.update_xaxes(type="category")
+    if params is not None:
+        annotation_text = "\n".join(
+            [f"{key}: {value}" for key, value in params.items()]
+        )
+        fig.update_layout(
+            annotations=[
+                dict(
+                    text=annotation_text,
+                    xref="paper",
+                    yref="paper",
+                    x=0.5,
+                    y=1,
+                    showarrow=False,
+                    align="left",
+                    font=dict(size=10),
+                )
+            ]
+        )
     fig.show()
 
 

@@ -104,6 +104,22 @@ class SkellamDistribution:
 
         return dff
 
+    def skellam_params(self):
+        averages = self.__get_averages()
+        season = self.season
+        league = self.league
+        avg_1 = averages["goals_home"]
+        avg_2 = averages["goals_away"]
+        total = averages["fixture_id"]
+
+        return {
+            "avg1": round(avg_1, 2),
+            "avg2": round(avg_2, 2),
+            "total": int(total),
+            "season": season,
+            "league": league,
+        }
+
 
 if "__main__" == __name__:
     p = skellam_dist_matrix(1.5, 1.1)

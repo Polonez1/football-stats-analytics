@@ -9,9 +9,10 @@ maindata = data.MainData(seasons=[2020, 2021, 2022])
 
 def result_distribution():
     df = maindata.fixtures_data()
-    graph = calc.SkellamDistribution(df=df)
-    full_data = graph.create_full_data()
-    vs.distribution_by_goals(full_data)
+    dist = calc.SkellamDistribution(df=df)
+    full_data = dist.create_full_data()
+    dist_params = dist.skellam_params()
+    vs.distribution_by_goals(full_data, params=dist_params)
 
 
 def stats_distribution():
