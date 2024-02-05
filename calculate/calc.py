@@ -6,8 +6,11 @@ import sys
 
 sys.path.append(".\calc\calculate\calculate_data_processing")
 
-import calculate.calculate_data_processing.skellam_dist_proc as skellam_dist_proc
-import calculate.calculate_data_processing.group_data as group_data
+# import calculate.
+import calculate_data_processing.skellam_dist_proc as skellam_dist_proc
+
+# import calculate.
+import calculate_data_processing.group_data as group_data
 
 
 def calculate_poisson_dist(avg: int):
@@ -49,6 +52,12 @@ def results_distribution_by_skellam(avg_1, avg_2, total):
     df["exp_counts"] = df["exp_counts"].round(0)
 
     return df
+
+
+def result_from_skellam_matrix(avg_1, avg_2):
+    skellam_matrix = skellam_dist_matrix(avg_1, avg_2)
+
+    return skellam_matrix
 
 
 class SkellamDistribution:
@@ -120,7 +129,11 @@ class SkellamDistribution:
             "league": league,
         }
 
+    def __create_fact_result_data(self):
+        df = self.data.groupby("result").size().reset_index(name="count")
+        return df
+
 
 if "__main__" == __name__:
-    p = skellam_dist_matrix(1.5, 1.1)
+    p = result_from_skellam_matrix(1.5, 1.1)
     print(p)

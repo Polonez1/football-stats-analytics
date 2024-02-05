@@ -12,7 +12,11 @@ def result_distribution():
     dist = calc.SkellamDistribution(df=df)
     full_data = dist.create_full_data()
     dist_params = dist.skellam_params()
-    vs.distribution_by_goals(full_data, params=dist_params)
+
+    result = dist.create_fact_result_data()
+    print(result.head(20))
+    # vs.test(full_data)
+    # vs.distribution_graph()
 
 
 def stats_distribution():
