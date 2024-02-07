@@ -56,8 +56,25 @@ def results_distribution_by_skellam(avg_1, avg_2, total):
 
 def result_from_skellam_matrix(avg_1, avg_2):
     skellam_matrix = skellam_dist_matrix(avg_1, avg_2)
+    goals_range = list(range(0, 11))
 
-    return skellam_matrix
+    draw = 0
+    home_win = 0
+    away_win = 0
+
+    for i in goals_range:
+        for j in goals_range:
+            prb = skellam_matrix.iloc[i, j]
+            if i == j:
+                draw = draw + prb
+            if i > j:
+                home_win = home_win + prb
+            if i < j:
+                away_win = away_win + prb
+
+    return pd.DataFrame(
+        {"result": ["home_win", "draw", "away_win"], "prb": [home_win, draw, away_win]}
+    )
 
 
 class SkellamDistribution:
@@ -133,7 +150,12 @@ class SkellamDistribution:
         df = self.data.groupby("result").size().reset_index(name="count")
         return df
 
+    def __create_skellam_result_data(self):
+        averages = self.__get_averages()
+
+        # result_from_skellam_matrix()
+
 
 if "__main__" == __name__:
-    p = result_from_skellam_matrix(1.5, 1.1)
+    p = result_from_skellam_matrix(1.4, 1.2)
     print(p)
