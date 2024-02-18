@@ -1,5 +1,5 @@
 import src.pysql.pySQL as sqlconn
-import SQL.conn as conn
+import conn as conn
 import pandas as pd
 from datetime import datetime
 

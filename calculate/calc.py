@@ -159,9 +159,3 @@ class SkellamDistribution:
 if "__main__" == __name__:
     p = result_from_skellam_matrix(1.4, 1.2)
     print(p)
-    
-    
-    
-    \
-        
-                                                                                       ['']
